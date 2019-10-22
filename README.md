@@ -24,7 +24,7 @@ docker build -t pg-madlib-image .
 Refer to the Postgresql [docker hub](https://hub.docker.com/_/postgres) for base image customisations & start options.
 
 ```
-docker run --name pg-madlib -e POSTGRES_PASSWORD=mypassword -p 5432:5432 pg-madlib-image
+docker run --name pg-madlib -e POSTGRES_PASSWORD=mypassword -p 5432:5432 -d pg-madlib-image
 ```
 
 ### Enabling MADlib
