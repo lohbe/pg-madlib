@@ -95,7 +95,7 @@ There are also several pl*.sql scripts in this repository that you can test the 
 
 ## Deployment
 
-This image has yet to be tested in Production environments - use at your own risk.
+To save a copy of the resulting image as a tar archive, use [`docker save`](https://docs.docker.com/engine/reference/commandline/save/). This image has yet to be tested in Production environments - use at your own risk.
 
 ## Tested With
 
