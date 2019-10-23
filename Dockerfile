@@ -18,3 +18,10 @@ RUN set -ex \
         && wget --no-check-certificate -O /tmp/madlib-1.16-bin.deb https://dist.apache.org/repos/dist/release/madlib/1.16/apache-madlib-1.16-bin-Linux.deb \
         && dpkg -i /tmp/madlib-1.16-bin.deb \
         && apt-get install -f -y
+
+# PostGIS binaries installation
+RUN set -ex \
+        && apt-get update && apt-get install -y --no-install-recommends \
+                postgis \
+                postgresql-10-postgis-2.5 \
+                postgresql-10-postgis-2.5-scripts

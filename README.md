@@ -1,6 +1,6 @@
-# Postgres - MADlib - PL/x
+# Postgres - MADlib - PL/x - PostGIS
 
-A dockerised Postgresql 10 official image with MADlib 1.16 and the official PL languages - pgSQL, Python, Perl, TCL
+A dockerised Postgresql 10 'official' image with MADlib 1.16 and the official PL languages - pgSQL, Python, Perl, TCL as well as PostGIS.
 
 ## Getting Started
 
@@ -66,6 +66,10 @@ Replace `plperlu` with any of the following when required:
 
 * plpythonu
 * pltcl
+
+### Enabling PostGIS Adminpack
+
+First get a bash prompt in a running container, then follow the instructions [here](https://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS24UbuntuPGSQL10Apt#EnableAdminpack).
 
 ### Stopping & removing container
 
