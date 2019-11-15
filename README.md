@@ -66,6 +66,7 @@ Replace `plperlu` with any of the following when required:
 
 * plpythonu
 * pltcl
+* plr
 
 ### Enabling PostGIS Adminpack
 
