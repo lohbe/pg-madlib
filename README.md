@@ -66,6 +66,7 @@ Replace `plperlu` with any of the following when required:
 
 * plpythonu
 * pltcl
+* plr
 
 ### Enabling PostGIS Adminpack
 
@@ -92,7 +93,7 @@ su - postgres
 
 TO verify that the necessary languages have been installed, run in `psql`:
 ```
-SELECT * from pg_languages;
+SELECT * from pg_language;
 ```
 
 There are also several pl*.sql scripts in this repository that you can test the actual functions with.

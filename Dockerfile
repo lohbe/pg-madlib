@@ -25,3 +25,9 @@ RUN set -ex \
                 postgis \
                 postgresql-10-postgis-2.5 \
                 postgresql-10-postgis-2.5-scripts
+
+# PL/R binaries installation
+RUN set -ex \
+        && apt-get update && apt-get install -y --no-install-recommends \
+                postgresql-10-plr
+
