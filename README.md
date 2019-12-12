@@ -72,6 +72,32 @@ Replace `plperlu` with any of the following when required:
 
 First get a bash prompt in a running container, then follow the instructions [here](https://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS24UbuntuPGSQL10Apt#EnableAdminpack).
 
+### Additional libraries & packages for PL/Python
+
+Use & extend the included ```requirements.pip``` (Python 2) and/or ```requirements.pip3``` (Python 3) to include additional Python packages during the docker image build.
+
+A quick and easy way to export the current package list and get started is to use ```pip/pip3 freeze``` e.g.:
+
+```
+# pip3 freeze | tee requirements.pip3
+numpy==1.17.4
+pandas==0.25.3
+python-dateutil==2.8.1
+pytz==2019.3
+six==1.13.0
+```
+
+To verify that the library is available in PL/Python via psql:
+```
+postgres=# do $$
+import pandas
+plpy.notice(pandas.__version__)
+$$ language plpython3u;
+NOTICE:  0.25.3
+DO
+```
+
+
 ### Stopping & removing container
 
 ```

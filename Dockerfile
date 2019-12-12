@@ -3,15 +3,27 @@ FROM postgres:10
 # Install wget to get the madlib packages
 # Install m4, python, and plpython for madlib
 # Install all other supported external-pl langs (python3, tcl, perl)
+# Install pip
 RUN set -ex; \
         apt-get update && apt-get install -y --no-install-recommends \
                 wget \
                 m4 \
-                python \
+                python python3 \
+                python-pip python3-pip \
                 postgresql-plpython-10 \
                 postgresql-plpython3-10 \
                 postgresql-pltcl-10 \
                 postgresql-plperl-10
+
+ADD requirements.pip /tmp/
+ADD requirements.pip3 /tmp/
+
+# Install Python libraries for data science via pip
+RUN set -ex; \
+        pip install -r /tmp/requirements.pip
+
+RUN set -ex; \
+        pip3 install -r /tmp/requirements.pip3
 
 # Get & install madlib binaries
 RUN set -ex \
