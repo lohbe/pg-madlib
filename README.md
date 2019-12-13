@@ -74,9 +74,9 @@ First get a bash prompt in a running container, then follow the instructions [he
 
 ### Additional libraries & packages for PL/Python
 
-Use & extend the included ```requirements.pip``` (Python 2) and/or ```requirements.pip3``` (Python 3) to include additional Python packages during the docker image build.
+Use & extend the included `requirements.pip` (Python 2) and/or `requirements.pip3` (Python 3) to include additional Python packages during the docker image build.
 
-A quick and easy way to export the current package list and get started is to use ```pip/pip3 freeze``` e.g.:
+A quick and easy way to export the current package list and get started is to use `pip/pip3 freeze` e.g.:
 
 ```
 # pip3 freeze | tee requirements.pip3
@@ -87,7 +87,7 @@ pytz==2019.3
 six==1.13.0
 ```
 
-To verify that the library is available in PL/Python via psql:
+To verify that the library is available in PL/Python via `psql`:
 ```
 postgres=# do $$
 import pandas
@@ -97,6 +97,50 @@ NOTICE:  0.25.3
 DO
 ```
 
+### Additional libraries & packages for PL/R
+
+_NOTE - adding libraries to R is a time-consuming process, as the source packages are downloaded and built from [CRAN](https://cran.asia). Consider loading only the necessary packages._
+
+Use & extend the included `rpackages.list` to include additional R packages during the docker image build.
+
+A quick and easy way to export the current package list from `R` and get started is to use: 
+```
+> write.csv(unique(data.frame(installed.packages())[,1]),"rpackages.list",row.names=F)
+```
+
+On the Linux CLI, it is possible to use `Rscript`:
+```
+# Rscript -e 'write.csv(unique(data.frame(installed.packages())[,1]),"rpackages.list",row.names=F)'
+```
+
+The resulting package list looks as follows:
+```
+# cat rpackages.list
+"x"
+"assertthat"
+"BH"
+"crayon"
+"magrittr"
+"pkgconfig"
+"plogr"
+"R6"
+"zeallot"
+"base"
+...
+..
+```
+
+Some warning messages are displayed if the `install.package()` command encounters packages that have already been installed.
+
+To verify that the library is available in PL/R via `psql`:
+```
+postgres=# do $$
+library(dplyr)
+pg.thrownotice(packageVersion("dplyr"))
+$$ language plr;
+NOTICE:  0.8.3
+DO
+```
 
 ### Stopping & removing container
 

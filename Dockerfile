@@ -38,8 +38,16 @@ RUN set -ex \
                 postgresql-10-postgis-2.5 \
                 postgresql-10-postgis-2.5-scripts
 
-# PL/R binaries installation
+# PL/R binaries installation; includes r-base-core
+# build-essential required for R package installs
 RUN set -ex \
         && apt-get update && apt-get install -y --no-install-recommends \
-                postgresql-10-plr
+                postgresql-10-plr \
+                build-essential
 
+ADD rpackages.list /tmp/
+
+# Get and build additional R source packages from CRAN
+# Note - this is a very slow, expensive step, only install required packages as necessary
+RUN set -ex; \
+        Rscript -e 'install.packages(as.character(read.csv("/tmp/rpackages.list")[,1]), repos="https://cran.asia")'
