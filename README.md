@@ -11,12 +11,19 @@ These instructions will get you a copy of the project up and running on your loc
 You will need:
 
 * A working Docker or container environment (e.g. Docker CLI and docker-machine)
+* Internet access
 
 ### Building the container
 
 To build the docker image,
 ```
-docker build -t pg-madlib-image .
+# docker build -t pg-madlib-image .
+```
+
+If disk space error occurs during build, please prune any unused containers via:
+
+```
+# docker system prune -a
 ```
 
 ### First time Run
@@ -167,6 +174,22 @@ SELECT * from pg_language;
 ```
 
 There are also several pl*.sql scripts in this repository that you can test the actual functions with.
+
+### Persistence step-by-step guide (From: Pavan 15 Dec 2019)
+
+Please refer to parent documentation in '[Where to Store Data](https://hub.docker.com/_/postgres)' for more details & options.
+
+The data created by/stored in postgresql or any process in container is persistent as long as the container of the image is not removed, its available between stop and start of container.
+
+If we want the data persistent across containers even after removal of containers of the image then we have to use volume groups and map the volume mount on the host to folder `/var/lib/postgresql/data` on the container while creating the container by the run command.
+
+First, run on the Docker host: `# docker volume create firstvol`
+This will create a folder /var/lib/docker/volumes/firstvol/_data on the host machine.
+
+Then while creating container for the image with the following command we have to use `-v` option where we map volume mount on host machine to postgresql data folder in container. This way data is persistent across the containers of the image even after removal of the container.
+```
+docker run --name pg-madlib -v firstvol:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mypassword -p 5432:5432 -d pg-madlib-image
+```
 
 ## Deployment
 
